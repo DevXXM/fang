@@ -8,7 +8,7 @@ git clone https://github.com/DevXXM/fang.git
 然后
 cd fang
 
-pip install -r requirements.txt
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 等待安装成功之后
 把fang.sql文件导入到mysql
