@@ -14,7 +14,6 @@ class FangPipeline(object):
     # def process_item(self, item, spider):
     #     return item
     def __init__(self):
-        print('1111111111111111111111111111111111111111111111111111111111111111111111111111111')
         self.connect = pymysql.connect(
             host=settings.MYSQL_HOST,
             db=settings.MYSQL_DBNAME,
@@ -26,30 +25,58 @@ class FangPipeline(object):
         self.cursor = self.connect.cursor();
 
     def process_item(self, item, spider):
-        print(
-            '222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222')
-
-        try:
-            self.cursor.execute(
-                "insert into l_xiaoqu (area, name,tag,cover,price,price_num,price_desc,deal,street,house_id,url,lease,city) value(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) on duplicate key update name=(name)",
-                (item['area'],
-                 item['name'],
-                 item['tag'],
-                 item['cover'],
-                 item['price'],
-                 item['price_num'],
-                 item['price_desc'],
-                 item['deal'],
-                 item['street'],
-                 item['house_id'],
-                 item['url'],
-                 item['lease'],
-                 item['city']
-                 ))
-            self.connect.commit()
-        except Exception as error:
-            print(error)
-            logging.log(error)
+        class_name = item.__class__.__name__
+        if class_name == 'areaItem':
+            try:
+                self.cursor.execute(
+                    "insert into l_xiaoqu (area, name,tag,cover,price,price_num,price_desc,deal,street,xiaoqu_id,url,lease,city) value(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) on duplicate key update name=(name)",
+                    (item['area'],
+                     item['name'],
+                     item['tag'],
+                     item['cover'],
+                     item['price'],
+                     item['price_num'],
+                     item['price_desc'],
+                     item['deal'],
+                     item['street'],
+                     item['xiaoqu_id'],
+                     item['url'],
+                     item['lease'],
+                     item['city']
+                     ))
+                self.connect.commit()
+            except Exception as error:
+                print(error)
+                logging.log(error)
+        else:
+            try:
+                self.cursor.execute(
+                    "insert into l_house (title, sub,follow,default_img,img,price,unit,unit_price,layout,floor,orientation,renovation,area,years,day7_visit,day30_visit,buy_attr,basic_attr,special_attr,xiaoqu_id) value(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) on duplicate key update title=(title)",
+                    (item['title'],
+                     item['sub'],
+                     item['follow'],
+                     item['default_img'],
+                     item['img'],
+                     item['price'],
+                     item['unit'],
+                     item['unit_price'],
+                     item['layout'],
+                     item['floor'],
+                     item['orientation'],
+                     item['renovation'],
+                     item['area'],
+                     item['years'],
+                     item['day7_visit'],
+                     item['day30_visit'],
+                     item['buy_attr'],
+                     item['basic_attr'],
+                     item['special_attr'],
+                     item['xiaoqu_id']
+                     ))
+                self.connect.commit()
+            except Exception as error:
+                print(error)
+                logging.log(error)
         return item
 
     def close_spider(self, spider):

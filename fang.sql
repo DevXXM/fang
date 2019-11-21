@@ -16,6 +16,36 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`spider` /*!40100 DEFAULT CHARACTER SET 
 
 USE `spider`;
 
+/*Table structure for table `l_house` */
+
+DROP TABLE IF EXISTS `l_house`;
+
+CREATE TABLE `l_house` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sub` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `follow` int(11) DEFAULT NULL,
+  `default_img` varchar(1024) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `img` mediumtext COLLATE utf8mb4_unicode_ci,
+  `price` decimal(12,2) DEFAULT NULL,
+  `unit` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `unit_price` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `layout` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `floor` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `orientation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `renovation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `area` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `years` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `day7_visit` int(11) DEFAULT NULL,
+  `day30_visit` int(11) DEFAULT NULL,
+  `buy_attr` mediumtext COLLATE utf8mb4_unicode_ci,
+  `basic_attr` mediumtext COLLATE utf8mb4_unicode_ci,
+  `special_attr` mediumtext COLLATE utf8mb4_unicode_ci,
+  `xiaoqu_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=39123 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 /*Table structure for table `l_xiaoqu` */
 
 DROP TABLE IF EXISTS `l_xiaoqu`;
@@ -31,7 +61,7 @@ CREATE TABLE `l_xiaoqu` (
   `years` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '建筑年代',
   `deal` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '成交量',
   `lease` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '出租数量',
-  `house_id` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '小区ID',
+  `xiaoqu_id` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '小区ID',
   `url` varchar(512) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '外链',
   `property_costs` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '物业费',
   `arch_type` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '建筑类型',
@@ -45,7 +75,7 @@ CREATE TABLE `l_xiaoqu` (
   `tag` varchar(512) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标签，比如近地铁站',
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=53168 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5884 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
