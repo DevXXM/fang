@@ -51,7 +51,7 @@ class FangPipeline(object):
         else:
             try:
                 self.cursor.execute(
-                    "insert into l_house (title, sub,follow,default_img,img,price,unit,unit_price,layout,floor,orientation,renovation,area,years,day7_visit,day30_visit,buy_attr,basic_attr,special_attr,xiaoqu_id) value(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) on duplicate key update title=(title)",
+                    "insert into l_house (title, sub,follow,default_img,img,price,unit,unit_price,layout,floor,orientation,renovation,area,years,day7_visit,day30_visit,buy_attr,basic_attr,special_attr,xiaoqu_id,house_id) value(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) on duplicate key update title=(title)",
                     (item['title'],
                      item['sub'],
                      item['follow'],
@@ -71,7 +71,8 @@ class FangPipeline(object):
                      item['buy_attr'],
                      item['basic_attr'],
                      item['special_attr'],
-                     item['xiaoqu_id']
+                     item['xiaoqu_id'],
+                     item['house_id']
                      ))
                 self.connect.commit()
             except Exception as error:

@@ -90,7 +90,7 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
     'fang.pipelines.FangPipeline': 300
 }
-
+DOWNLOAD_TIMEOUT = 10
 MYSQL_HOST = 'localhost'
 MYSQL_DBNAME = 'spider'
 MYSQL_USER = 'root'

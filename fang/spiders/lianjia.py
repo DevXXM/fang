@@ -13,9 +13,9 @@ class mingyan(scrapy.Spider):  # 需要继承scrapy.Spider类
     name = "lianjia"  # 定义蜘蛛名,不要动
 
     # 换成自己的城市
-    city = "重庆"
+    city = "北京"
     # 换成自己城市的链接
-    url = 'https://cq.lianjia.com'
+    url = 'https://bj.lianjia.com'
 
     def start_requests(self):  # 由此方法通过下面链接爬取页面
         # 定义爬取的链接
@@ -152,6 +152,7 @@ class mingyan(scrapy.Spider):  # 需要继承scrapy.Spider类
         xiaoqu_id = response.meta['xiaoqu_id']
         data = response.body
         print(response.url)
+        house_id = response.url[response.url.rfind('/', 1) + 1:response.url.rfind('.')]
         soup = BeautifulSoup(data, "html.parser")
         title = soup.find(attrs={'class': 'title-wrapper'}).find(attrs={'class': 'main'}).get('title')
         sub = soup.find(attrs={'class': 'title-wrapper'}).find(attrs={'class': 'sub'}).get('title')
@@ -225,14 +226,6 @@ class mingyan(scrapy.Spider):  # 需要继承scrapy.Spider类
         buy_attr = json.dumps(buy_attr_dict)
         basic_attr = json.dumps(basic_attr_dict)
         special_attr = json.dumps(special_dict)
-        # print(special_dict)
-        # print(buy_attr_dict)
-        # print(basic_attr_dict)
-        # print(title)
-        # print(sub)
-        # print(follow)
-        # print(default_img)
-        # print(img_arr)
         item = houseItem()
         item['title'] = title
         item['sub'] = sub
@@ -254,4 +247,5 @@ class mingyan(scrapy.Spider):  # 需要继承scrapy.Spider类
         item['basic_attr'] = basic_attr
         item['special_attr'] = special_attr
         item['xiaoqu_id'] = xiaoqu_id
+        item['house_id'] = house_id
         yield item

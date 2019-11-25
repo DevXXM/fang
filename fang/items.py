@@ -53,3 +53,4 @@ class houseItem(scrapy.Item):
     basic_attr = scrapy.Field() #基本属性
     special_attr = scrapy.Field() #优势介绍
     xiaoqu_id = scrapy.Field() #小区ID
+    house_id = scrapy.Field() #房屋ID
