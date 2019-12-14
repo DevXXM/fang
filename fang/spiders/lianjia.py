@@ -13,9 +13,9 @@ class mingyan(scrapy.Spider):  # 需要继承scrapy.Spider类
     name = "lianjia"  # 定义蜘蛛名,不要动
 
     # 换成自己的城市
-    city = "北京"
+    city = "广州"
     # 换成自己城市的链接
-    url = 'https://bj.lianjia.com'
+    url = 'https://gz.lianjia.com'
 
     def start_requests(self):  # 由此方法通过下面链接爬取页面
         # 定义爬取的链接
@@ -34,19 +34,19 @@ class mingyan(scrapy.Spider):  # 需要继承scrapy.Spider类
         3、定义规则，然后提取数据；
         '''
         data = response.body
-        print(response.url)
+        # print(response.url)
         soup = BeautifulSoup(data, "lxml")
         areas = soup.find(attrs={'data-role': 'ershoufang'}).find_all('a')
         for area in areas:
-            print(area.text)
+            # print(area.text)
             url = response.url + area.get('href')[8:]
-            print(url)
+            # print(url)
             yield scrapy.Request(url, callback=self.xiaoqu_pages)
             # break
 
     def xiaoqu_pages(self, response):
         data = response.body
-        print(response.url)
+        # print(response.url)
         soup = BeautifulSoup(data, "html.parser")
         next_page = soup.find(attrs={'class': 'page-box fr'}).find(attrs={'class': 'house-lst-page-box'}).get(
             'page-data')
@@ -56,19 +56,19 @@ class mingyan(scrapy.Spider):  # 需要继承scrapy.Spider类
         if (current_page >= total_page):
             return False
         for i in range(1, total_page + 1):
-            print(i)
+            # print(i)
             url = response.url + "pg" + str(i) + "/"
-            print(url)
+            # print(url)
             yield scrapy.Request(url, callback=self.xiaoqu_list)
             # break
 
     def xiaoqu_list(self, response):
         data = response.body
-        print(response.url)
+        # print(response.url)
         soup = BeautifulSoup(data, "html.parser")
         xiaoqus = soup.find(attrs={'class': 'listContent'}).find_all('li')
         for i in xiaoqus:
-            print(i)
+            # print(i)
             xiaoqu_id = i.get('data-id')
             url = i.find(attrs={'class': 'img'}).get('href')
             area = i.find(attrs={'class': 'district'}).text
@@ -119,19 +119,19 @@ class mingyan(scrapy.Spider):  # 需要继承scrapy.Spider类
         if (current_page >= total_page):
             return False
         for i in range(1, total_page + 1):
-            print(i)
+            # print(i)
             before = response.url[0:response.url.rfind('c', 1)]
             after = response.url[response.url.rfind('c', 1):]
             url = before + "pg" + str(i) + after
-            print(url)
+            # print(url)
             yield scrapy.Request(url, callback=self.get_ershou_list)
             # break
 
     def get_ershou_list(self, response):
         xiaoqu_id = response.url[response.url.rfind('c', 1) + 1:-1]
-        print(xiaoqu_id)
+        # print(xiaoqu_id)
         data = response.body
-        print(response.url)
+        # print(response.url)
         soup = BeautifulSoup(data, "html.parser")
         houses = soup.find(attrs={'class': 'sellListContent'}).find_all('li')
         for i in houses:
